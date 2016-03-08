@@ -1,7 +1,7 @@
-package zad01;
+package junitTest;
 
-public class Calculator {
-	public Calculator() {
+public class calculator {
+	public calculator() {
 		System.out.println("Calc: " + this);
 	}
 	

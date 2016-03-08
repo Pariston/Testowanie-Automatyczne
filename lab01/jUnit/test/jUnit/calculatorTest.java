@@ -1,19 +1,14 @@
-package zad02;
+package jUnit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import zad02.Calculator;
-
-public class CalculatorTest {
-	// System Under Test
-	Calculator calc = new Calculator();
+public class calculatorTest {
+	// System Under Test test test
+	calculator calc = new calculator();
 	
 	// 1b Dzielenie przez zero
 	@Test(expected = ArithmeticException.class)
@@ -34,25 +29,27 @@ public class CalculatorTest {
 	@Test
 	public void checkAdding() {
 		// Sprawdzam, że jakieś 2 wartości są równe
-		assertEquals(5, calc.add(2,  3), 0.0);
+		assertEquals(5, calc.add(2,  3));
 		
 	}
 	
 	@Test
 	public void checkSub() {
-		assertEquals(2.5, calc.sub(5, 2), 0.0);
+		assertEquals(3, calc.sub(10, 7));
 	}
 	
 	@Test
 	public void checkDividing() {
-		assertEquals(5, calc.div(10, 2), 0.0001);
+		assertEquals(5, calc.div(10, 2));
+		assertEquals(5, calc.div(10, 2));
 		System.out.println("Dividing " + calc);
 		assertNotEquals(5, calc.div(12, 2));
+		//assertThat([1, 2, 3], hasItem(calc.div(6, 2)));
 	}
 	
 	@Test
 	public void checkMultiplying() {
-		assertEquals(6, calc.multi(2, 3), 0.0001);
+		assertEquals(6, calc.multi(2, 3));
 		assertNotEquals("OK", 6, calc.multi(3, 3));
 	}
 	
