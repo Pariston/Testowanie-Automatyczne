@@ -28,4 +28,10 @@ public class filmTest {
 		fR.usun(f); //teraz znowu pusta
 		assertTrue(fR.pobierzWszystko().isEmpty()); //powinna byc pusta
 	}
+	
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void checkException() {
+		fR.pobierzWszystko().removeAll(fR.pobierzWszystko());
+		fR.pobierzWszystko().get(0);
+	}
 }
