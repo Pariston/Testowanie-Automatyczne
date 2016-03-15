@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class FilmTest {
-	FilmRepo fR = new FilmRepo();
+	FilmManager fR = new FilmManager();
 	Film f = new Film("Władca Pierścieni", "Film o hobbicie owłosionym znakomicie", 2004);
 	Film f2 = new Film("RzycieJestNobelom", "Tak przyjaznom, a raz dosyc", 2013);
 	
