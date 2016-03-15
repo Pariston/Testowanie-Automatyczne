@@ -20,8 +20,9 @@ public class FilmTest {
 		fR.dodaj(f2);
 		
 		assertFalse(fR.pobierzWszystko().isEmpty()); //powinna być niepusta
-		assertEquals(fR.pobierzWszystko().get(0).tytul, "Władca Pierścieni");
-		assertEquals(fR.pobierzWszystko().get(1).tytul, "RzycieJestNobelom");
+		assertEquals("Władca Pierścieni", fR.pobierzWszystko().get(0).tytul);
+		assertEquals("RzycieJestNobelom", fR.pobierzWszystko().get(1).tytul);
+		assertEquals(f2, fR.pobierzWszystko().get(1));
 		assertEquals(fR.pobierzWszystko().size(), 2);
 		
 		fR.usun(f); //teraz znowu pusta
