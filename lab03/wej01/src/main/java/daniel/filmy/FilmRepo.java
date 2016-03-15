@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilmRepo implements FilmManager {
-	public List<Film> filmy = new ArrayList();
+	private List<Film> filmy = new ArrayList();
 	
 	@Override
 	public void dodaj(Film f) {
