@@ -16,10 +16,16 @@ public class filmTest {
 	@Test
 	public void checkAdd() {
 		fR.dodaj(f);
+		assertFalse(fR.pobierzWszystko().isEmpty()); //powinna być niepusta		
+		fR.usun(f); //teraz znowu pusta
+	}
+	
+	@Test
+	public void checkRemove() {
+		fR.dodaj(f);
 		assertFalse(fR.pobierzWszystko().isEmpty()); //powinna być niepusta
 		
 		fR.usun(f); //teraz znowu pusta
 		assertTrue(fR.pobierzWszystko().isEmpty()); //powinna byc pusta
-		//assertNull(fR.pobierzWszystko().get(0));
 	}
 }
