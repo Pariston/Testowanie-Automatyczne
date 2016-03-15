@@ -4,9 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class filmTest {
-	filmRepo fR = new filmRepo();
-	film f = new film("Władca Pierścieni", "Film o hobbicie owłosionym znakomicie", 2004);
+public class FilmTest {
+	FilmRepo fR = new FilmRepo();
+	Film f = new Film("Władca Pierścieni", "Film o hobbicie owłosionym znakomicie", 2004);
+	Film f2 = new Film("RzycieJestNobelom", "Tak przyjaznom, a raz dosyc", 2013);
 	
 	@Test
 	public void checkList() {
@@ -16,9 +17,16 @@ public class filmTest {
 	@Test
 	public void checkAdd() {
 		fR.dodaj(f);
-		assertNotNull(fR.pobierzWszystko().get(0));
-		assertFalse(fR.pobierzWszystko().isEmpty()); //powinna być niepusta		
+		fR.dodaj(f2);
+		
+		assertFalse(fR.pobierzWszystko().isEmpty()); //powinna być niepusta
+		assertEquals(fR.pobierzWszystko().get(0).tytul, "Władca Pierścieni");
+		assertEquals(fR.pobierzWszystko().get(1).tytul, "RzycieJestNobelom");
+		assertEquals(fR.pobierzWszystko().size(), 2);
+		
 		fR.usun(f); //teraz znowu pusta
+		fR.usun(f2);
+		assertNotEquals(fR.pobierzWszystko().size(), 2);
 	}
 	
 	@Test
