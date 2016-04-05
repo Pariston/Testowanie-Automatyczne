@@ -6,6 +6,7 @@ import com.example.mockdemo.messenger.ConnectionStatus;
 import com.example.mockdemo.messenger.MalformedRecipientException;
 import com.example.mockdemo.messenger.MessageService;
 import com.example.mockdemo.messenger.MessageServiceSimpleImpl;
+import com.example.mockdemo.messenger.SendingStatus;
 
 import static org.easymock.EasyMock.createMock;
 import static org.junit.Assert.*;
@@ -30,14 +31,16 @@ public class MockitoAppTest {
 	
 	@Test
 	public void checkingSendingResults() {
-		when(msMock.checkConnection(VALID_SERVER)).thenReturn(ConnectionStatus.FAILURE);		
+		when(msMock.checkConnection(VALID_SERVER)).thenReturn(ConnectionStatus.FAILURE);	
 		assertEquals(ConnectionStatus.FAILURE, msMock.checkConnection(VALID_SERVER));
+		verify(msMock).checkConnection(VALID_SERVER);
 	}
 
 	@Test
 	public void checkingInvalidResults() {
-		when(msMock.checkConnection(INVALID_SERVER)).thenReturn(ConnectionStatus.SUCCESS);		
+		when(msMock.checkConnection(INVALID_SERVER)).thenReturn(ConnectionStatus.SUCCESS);	
 		assertEquals(ConnectionStatus.SUCCESS, msMock.checkConnection(INVALID_SERVER));
+		verify(msMock).checkConnection(INVALID_SERVER);
 	}
 	
 	
@@ -46,16 +49,14 @@ public class MockitoAppTest {
 
 		when(msMock.send(VALID_SERVER, INVALID_MESSAGE)).thenThrow(
 				new MalformedRecipientException());
-
 		assertEquals(2, messenger.sendMessage(VALID_SERVER, INVALID_MESSAGE));
-		verify(msMock);
+		verify(msMock).send(VALID_SERVER, INVALID_MESSAGE);
 	}
 	
 	@Test
-	public void sendingInalidReceipientAndServer() {
-
-
-		assertEquals(2, messenger.sendMessage(VALID_SERVER, INVALID_MESSAGE));
-		verify(msMock);
+	public void sendingIvnalidReceipientAndServer() throws MalformedRecipientException {
+		when(msMock.send(INVALID_SERVER, INVALID_MESSAGE)).thenReturn(SendingStatus.SENT);
+		assertEquals(0, messenger.sendMessage(INVALID_SERVER, INVALID_MESSAGE));
+		verify(msMock).send(INVALID_SERVER, INVALID_MESSAGE);
 	}
 }

@@ -23,5 +23,3 @@ import com.example.mockdemo.messenger.SendingStatus;
 public class EasyMockAppTest {
 
 }
-
-//lol
