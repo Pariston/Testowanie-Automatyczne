@@ -35,18 +35,10 @@ public class MockitoAppTest {
 	}
 
 	@Test
-	public void checkingSendingResults2() {
-		when(msMock.checkConnection(VALID_SERVER)).thenReturn(ConnectionStatus.FAILURE);		
-		assertEquals(ConnectionStatus.FAILURE, msMock.checkConnection(VALID_SERVER));
-	}
-	
-	
-	@Test
 	public void checkingInvalidResults() {
-		when(msMock.checkConnection(INVALID_SERVER)).thenReturn(ConnectionStatus.SUCCESS);
+		when(msMock.checkConnection(INVALID_SERVER)).thenReturn(ConnectionStatus.SUCCESS);		
 		assertEquals(ConnectionStatus.SUCCESS, msMock.checkConnection(INVALID_SERVER));
 	}
-	
 	
 	
 	@Test
@@ -59,4 +51,11 @@ public class MockitoAppTest {
 		verify(msMock);
 	}
 	
+	@Test
+	public void sendingInalidReceipientAndServer() {
+
+
+		assertEquals(2, messenger.sendMessage(VALID_SERVER, INVALID_MESSAGE));
+		verify(msMock);
+	}
 }
