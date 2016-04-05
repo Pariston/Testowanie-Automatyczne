@@ -5,7 +5,7 @@ import com.example.mockdemo.messenger.MessageService;
 import com.example.mockdemo.messenger.SendingStatus;
 
 public class Messenger {
-
+	
 	private MessageService ms;
 
 	public Messenger(MessageService ms) {
