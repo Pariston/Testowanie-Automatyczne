@@ -45,21 +45,18 @@ public class MockitoAppTest {
 	public void checkingInvalidResults() {
 		when(msMock.checkConnection(INVALID_SERVER)).thenReturn(ConnectionStatus.SUCCESS);
 		assertEquals(ConnectionStatus.SUCCESS, msMock.checkConnection(INVALID_SERVER));
-		verify(msMock);
 	}
 	
 	
-	/*
+	
 	@Test
 	public void sendingInvalidReceipient() throws MalformedRecipientException {
 
 		when(msMock.send(VALID_SERVER, INVALID_MESSAGE)).thenThrow(
 				new MalformedRecipientException());
 
-		replay(msMock);
-
 		assertEquals(2, messenger.sendMessage(VALID_SERVER, INVALID_MESSAGE));
 		verify(msMock);
 	}
-	*/
+	
 }
