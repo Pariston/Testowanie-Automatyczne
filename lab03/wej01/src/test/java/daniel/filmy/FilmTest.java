@@ -2,9 +2,39 @@ package daniel.filmy;
 
 import static org.junit.Assert.*;
 
+import org.easymock.EasyMockRule;
+import org.easymock.Mock;
+import static org.easymock.EasyMock.*;
+import org.easymock.TestSubject;
+import org.junit.Rule;
 import org.junit.Test;
 
 public class FilmTest {
+	
+	Film f = new Film("Wladca Pierscieni", "Film o hobbicie", 2004);
+	
+	@Rule
+	public EasyMockRule mocks = new EasyMockRule(this);
+	
+	@Mock
+	private IFilmManager mock;
+	 
+	@TestSubject
+	private FilmManager fm = new FilmManager(mock);
+	
+	@Test
+	public void filmManagerTest() {
+		mock.dodaj(f);
+		expectLastCall();
+		expect(mock.size()).andReturn(1);
+		expect(mock.getAll()).andReturn(mock);
+		replay(mock);
+		fm.dodaj(f);
+		//assertEquals(0, fm.getAll().size());
+		verify(mock);
+	}
+	
+	/*
 	FilmManager fR = new FilmManager();
 	Film f = new Film("Władca Pierścieni", "Film o hobbicie owłosionym znakomicie", 2004);
 	Film f2 = new Film("RzycieJestNobelom", "Tak przyjaznom, a raz dosyc", 2013);
@@ -44,4 +74,5 @@ public class FilmTest {
 		fR.pobierzWszystko().removeAll(fR.pobierzWszystko());
 		fR.pobierzWszystko().get(0);
 	}
+	*/
 }
