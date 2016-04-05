@@ -28,13 +28,18 @@ public class MockitoAppTest {
 		messenger = new Messenger(msMock);
 	}
 	
-	//poprawność zwracanych komunikatów
 	@Test
-	public void checkingValidResults() {
+	public void checkingSendingResults() {
 		when(msMock.checkConnection(VALID_SERVER)).thenReturn(ConnectionStatus.FAILURE);		
 		assertEquals(ConnectionStatus.FAILURE, msMock.checkConnection(VALID_SERVER));
-		verify(msMock);
 	}
+
+	@Test
+	public void checkingSendingResults2() {
+		when(msMock.checkConnection(VALID_SERVER)).thenReturn(ConnectionStatus.FAILURE);		
+		assertEquals(ConnectionStatus.FAILURE, msMock.checkConnection(VALID_SERVER));
+	}
+	
 	
 	@Test
 	public void checkingInvalidResults() {
@@ -42,4 +47,19 @@ public class MockitoAppTest {
 		assertEquals(ConnectionStatus.SUCCESS, msMock.checkConnection(INVALID_SERVER));
 		verify(msMock);
 	}
+	
+	
+	/*
+	@Test
+	public void sendingInvalidReceipient() throws MalformedRecipientException {
+
+		when(msMock.send(VALID_SERVER, INVALID_MESSAGE)).thenThrow(
+				new MalformedRecipientException());
+
+		replay(msMock);
+
+		assertEquals(2, messenger.sendMessage(VALID_SERVER, INVALID_MESSAGE));
+		verify(msMock);
+	}
+	*/
 }
