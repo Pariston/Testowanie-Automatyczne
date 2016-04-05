@@ -28,10 +28,18 @@ public class MockitoAppTest {
 		messenger = new Messenger(msMock);
 	}
 	
+	//poprawność zwracanych komunikatów
 	@Test
-	public void checkingSendingResults() {
+	public void checkingValidResults() {
 		when(msMock.checkConnection(VALID_SERVER)).thenReturn(ConnectionStatus.FAILURE);		
 		assertEquals(ConnectionStatus.FAILURE, msMock.checkConnection(VALID_SERVER));
+		verify(msMock);
+	}
+	
+	@Test
+	public void checkingInvalidResults() {
+		when(msMock.checkConnection(INVALID_SERVER)).thenReturn(ConnectionStatus.SUCCESS);
+		assertEquals(ConnectionStatus.SUCCESS, msMock.checkConnection(INVALID_SERVER));
 		verify(msMock);
 	}
 }
