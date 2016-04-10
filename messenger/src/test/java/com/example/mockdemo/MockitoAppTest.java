@@ -1,7 +1,8 @@
-package com.example.mockdemo.app;
+package com.example.mockdemo;
 
 import org.junit.*;
 
+import com.example.mockdemo.app.Messenger;
 import com.example.mockdemo.messenger.ConnectionStatus;
 import com.example.mockdemo.messenger.MalformedRecipientException;
 import com.example.mockdemo.messenger.MessageService;
