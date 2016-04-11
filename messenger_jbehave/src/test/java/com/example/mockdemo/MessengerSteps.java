@@ -34,10 +34,14 @@ public class MessengerSteps {
 		assertEquals(status, messenger.testConnection(SERVER));
 	}
 	
-	@Then("the output sending a message status should be $status")
+	@Then("the wrong output sending a message status should be $status")
 	public void checkSendingStatus(int status) throws MalformedRecipientException {
 		assertEquals(status, messenger.sendMessage(SERVER, MESSAGE));
 	}
-	
+
+	@Then("the output sending a message status should be $status1 or $status2")
+	public void checkSendingStatusOr(int status1, int status2) throws MalformedRecipientException {
+		assertThat(messenger.sendMessage(SERVER, MESSAGE), either(equalTo(status1)).or(equalTo(status2)));
+	}
 	
 }
