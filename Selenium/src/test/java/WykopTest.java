@@ -19,7 +19,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Created by Daniel on 12.04.2016.
  */
-public class SomeSiteTest {
+public class WykopTest {
     private static WebDriver driver;
     WebElement element;
     WebElement element2;
