@@ -1,12 +1,21 @@
 package com.example.webguidemo;
 
 import com.example.webguidemo.pages.*;
+import org.apache.commons.io.FileUtils;
 import org.jbehave.web.selenium.WebDriverProvider;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+
+import java.io.File;
+import java.io.IOException;
+
+import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.assertTrue;
 
 public class Pages {
 
 	private WebDriverProvider driverProvider;
-	
+
 	//Pages
 	private Home home;
 	private Wykopalisko wykopalisko;
@@ -53,5 +62,17 @@ public class Pages {
 			register = new Register(driverProvider);
 		}
 		return register;
+	}
+
+	public void screenshot(String title) {
+		File screenshot = ((TakesScreenshot) driverProvider.get()).getScreenshotAs(OutputType.FILE);
+		assertNotNull(screenshot);
+
+		try {
+			FileUtils.copyFile(screenshot, new File("./screenshots/" + title + ".png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 	}
 }

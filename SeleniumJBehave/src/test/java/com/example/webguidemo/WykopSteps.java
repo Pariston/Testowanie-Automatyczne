@@ -13,9 +13,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-/**
- * Created by Daniel on 19.04.2016.
- */
 public class WykopSteps {
 
     private final Pages pages;
@@ -36,6 +33,7 @@ public class WykopSteps {
 
     @Then("Wykopalisko page is shown")
     public void wykopaliskoPageIsShown(){
+        pages.screenshot("Wykopalisko-page");
         assertEquals("Wykopalisko - Wykop.pl", pages.wykopalisko().getTitle());
     }
 
@@ -46,6 +44,7 @@ public class WykopSteps {
 
     @Then("Search input is shown")
     public void searchInputIsShown() {
+        pages.screenshot("search-input-visible");
         assertThat(pages.home().findElement(By.xpath("//input[@name='nsQ']")).getAttribute("style"), either(equalTo("")).or(equalTo("display: none;")));
     }
 
@@ -56,6 +55,7 @@ public class WykopSteps {
 
     @Then("Search result is shown")
     public void searchResultIsShown() {
+        pages.screenshot("search-result");
         // istnienie bloku o klasie "usercard" jest dowodem na otrzymanie przynajmniej jednego wyniku wyszukiwarki
         assertNotNull(pages.search().findElement(By.className("usercard")));
     }
@@ -72,7 +72,9 @@ public class WykopSteps {
 
     @Then("login error message is shown")
     public void loginErrorMessageIsShown() {
+        pages.screenshot("login-error");
         TestCase.assertEquals("Niepoprawny login lub hasło", pages.login().findElement(By.className("wblock")).getText());
+
     }
 
     @Given("user is on Register page")
@@ -87,6 +89,7 @@ public class WykopSteps {
 
     @Then("register error message is shown")
     public void registerErrorMessageIsShown() {
+        pages.screenshot("register-error");
         assertEquals("error", pages.register().findElement(By.id("loginField")).getAttribute("class"));
         assertEquals("Wybrany login jest zajęty", pages.register().findElement(By.className("wblock")).getText());
     }
@@ -98,6 +101,8 @@ public class WykopSteps {
 
     @Then("user should be logged in")
     public void userShouldBeLoggedIn() {
+        pages.screenshot("user-logged");
         assertTrue(pages.login().isLogged());
     }
+
 }
