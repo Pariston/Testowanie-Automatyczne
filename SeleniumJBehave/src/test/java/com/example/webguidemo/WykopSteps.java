@@ -64,16 +64,16 @@ public class WykopSteps {
         pages.login().open();
     }
 
-    @When("user types invalid data")
-    public void userTypesInvalidData() {
-        pages.login().loginInvalid();
+    @When("user types invalid data - $login and $password")
+    public void userTypesInvalidData(String login, String password) {
+        pages.login().loginInvalid(login, password);
     }
 
-    @Then("login error message is shown")
-    public void loginErrorMessageIsShown() {
+    @Then("page title is $title and login error message $message is shown")
+    public void loginErrorMessageIsShown(String title, String message) {
         pages.screenshot("login-error");
-        assertEquals("Niepoprawny login lub hasło", pages.login().findElement(By.className("wblock")).getText());
-        assertEquals("Wykop.pl - Zaloguj się", pages.wykopalisko().getTitle());
+        assertEquals(message, pages.login().findElement(By.className("wblock")).getText());
+        assertEquals(title, pages.wykopalisko().getTitle());
     }
 
     @Given("user is on Register page")
@@ -81,22 +81,22 @@ public class WykopSteps {
         pages.register().open();
     }
 
-    @When("user types used login")
-    public void userTypesUsedLogin() {
-        pages.register().invalidRegister();
+    @When("user types used login - $login")
+    public void userTypesUsedLogin(String login) {
+        pages.register().invalidRegister(login);
     }
 
-    @Then("register error message is shown")
-    public void registerErrorMessageIsShown() {
+    @Then("page title is $title and register error message $message is shown")
+    public void registerErrorMessageIsShown(String title, String message) {
         pages.screenshot("register-error");
         assertEquals("error", pages.register().findElement(By.id("loginField")).getAttribute("class"));
-        assertEquals("Wybrany login jest zajęty", pages.register().findElement(By.className("wblock")).getText());
-        assertEquals("Wykop.pl - Rejestracja użytkownika", pages.wykopalisko().getTitle());
+        assertEquals(message, pages.register().findElement(By.className("wblock")).getText());
+        assertEquals(title, pages.wykopalisko().getTitle());
     }
 
-    @When("user types valid data")
-    public void userTypesValidLogin() {
-        pages.login().loginValid();
+    @When("user types valid data - $login and $password")
+    public void userTypesValidLogin(String login, String password) {
+        pages.login().loginValid(login, password);
     }
 
     @Then("user should be logged in")
@@ -106,9 +106,9 @@ public class WykopSteps {
 
     }
 
-//    @Given("user is on Settings page")
-//    public void userIsOnSettingsPage() {
-//        pages.login().userGoToSettingsPage();
+//    @Given("user is on Settings page - if not logged in, then do using $login and $password")
+//    public void userIsOnSettingsPage(String login, String password) {
+//        pages.login().userGoToSettingsPage(login, password);
 //    }
 //
 //    @When("user changes color version")

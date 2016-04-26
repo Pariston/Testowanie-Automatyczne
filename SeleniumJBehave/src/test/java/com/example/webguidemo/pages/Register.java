@@ -20,7 +20,7 @@ public class Register extends WebDriverPage {
         manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    public void invalidRegister() {
+    public void invalidRegister(String login) {
         // Sprawdzam czy jestem zalogowany (jeżeli tak, to się wylogowuję)
         Boolean isLogged = findElements(By.className("logged-user")).size() > 0;
         System.out.println(isLogged);
@@ -32,7 +32,7 @@ public class Register extends WebDriverPage {
 
         // Pole nazwy użytkownika wypełniam używanym loginem
         // Po wyjściu z pola tekstowego, inputowi powinna zostać nadana klasa .error
-        findElement(By.id("loginField")).sendKeys("Pooffy");
+        findElement(By.id("loginField")).sendKeys(login);
         findElement(By.id("emailField")).sendKeys("superemail@gmail.com");
         findElement(By.id("passwordField")).sendKeys("tajnehaslo");
         findElement(By.id("ok")).click();

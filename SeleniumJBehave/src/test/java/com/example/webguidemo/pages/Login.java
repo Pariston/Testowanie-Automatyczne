@@ -35,26 +35,26 @@ public class Login extends WebDriverPage {
         manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    public void loginInvalid() {
-        findElement(By.id("text1")).sendKeys("Pooffy");
-        findElement(By.id("text2")).sendKeys("tajnehaslo");
+    public void loginInvalid(String login, String haslo) {
+        findElement(By.id("text1")).sendKeys(login);
+        findElement(By.id("text2")).sendKeys(haslo);
 
         // Po naciśnięciu submita, formularz wyświetla błędy
         findElement(By.className("submit")).click();
     }
 
-    public void loginValid() {
+    public void loginValid(String login, String password) {
         isLogged();
 
-        findElement(By.id("text1")).sendKeys("Pooffy");
-        findElement(By.id("text2")).sendKeys("dlatestu");
+        findElement(By.id("text1")).sendKeys(login);
+        findElement(By.id("text2")).sendKeys(password);
 
         // Po naciśnięciu submita, przechodzę zalogowany na stronę główną
         findElement(By.className("submit")).click();
     }
 
-    public void userGoToSettingsPage() {
-        if(!isLogged()) loginValid();
+    public void userGoToSettingsPage(String login, String password) {
+        if(!isLogged()) loginValid(login, password);
         get("http://www.wykop.pl/ustawienia/");
         manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
