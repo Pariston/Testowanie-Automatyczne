@@ -1,6 +1,5 @@
 package com.example.webguidemo;
 
-import junit.framework.TestCase;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
@@ -73,8 +72,8 @@ public class WykopSteps {
     @Then("login error message is shown")
     public void loginErrorMessageIsShown() {
         pages.screenshot("login-error");
-        TestCase.assertEquals("Niepoprawny login lub hasło", pages.login().findElement(By.className("wblock")).getText());
-
+        assertEquals("Niepoprawny login lub hasło", pages.login().findElement(By.className("wblock")).getText());
+        assertEquals("Wykop.pl - Zaloguj się", pages.wykopalisko().getTitle());
     }
 
     @Given("user is on Register page")
@@ -92,6 +91,7 @@ public class WykopSteps {
         pages.screenshot("register-error");
         assertEquals("error", pages.register().findElement(By.id("loginField")).getAttribute("class"));
         assertEquals("Wybrany login jest zajęty", pages.register().findElement(By.className("wblock")).getText());
+        assertEquals("Wykop.pl - Rejestracja użytkownika", pages.wykopalisko().getTitle());
     }
 
     @When("user types valid data")
@@ -105,4 +105,18 @@ public class WykopSteps {
         assertTrue(pages.login().isLogged());
     }
 
+//    @Given("user is on Settings page")
+//    public void userIsOnSettingsPage() {
+//        pages.login().userGoToSettingsPage();
+//    }
+//
+//    @When("user changes color version")
+//    public void userChangesColorVersion() {
+//        pages.login().userChangeColorVersion();
+//    }
+//
+//    @Then("selected color should be changed")
+//    public void selectedColorShouldBeChanged() {
+//
+//    }
 }

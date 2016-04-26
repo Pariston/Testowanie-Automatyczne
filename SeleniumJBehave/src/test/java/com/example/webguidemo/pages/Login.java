@@ -3,6 +3,7 @@ package com.example.webguidemo.pages;
 import org.jbehave.web.selenium.WebDriverPage;
 import org.jbehave.web.selenium.WebDriverProvider;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,6 +15,7 @@ public class Login extends WebDriverPage {
     public Login(WebDriverProvider driverProvider) {
         super(driverProvider);
     }
+    WebElement element;
 
     public boolean isLogged() {
         // Sprawdzam czy jestem zalogowany (jeżeli tak, to się wylogowuję)
@@ -49,5 +51,25 @@ public class Login extends WebDriverPage {
 
         // Po naciśnięciu submita, przechodzę zalogowany na stronę główną
         findElement(By.className("submit")).click();
+    }
+
+    public void userGoToSettingsPage() {
+        get("http://www.wykop.pl/ustawienia/");
+        manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    }
+
+    public void userChangeColorVersion() {
+        get("http://www.wykop.pl/ustawienia/");
+        manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        findElement(By.xpath("//select[@name='user[night_mode]']")).click();
+
+        if(findElement(By.xpath("//option[@value='0']")).isSelected()) {
+            findElement(By.xpath("//option[@value='1']")).click();
+        } else {
+            findElement(By.xpath("//option[@value='0']")).click();
+        }
+
+        findElement(By.className("submit")).click();
+        open();
     }
 }

@@ -20,3 +20,7 @@ Then user should be logged in
 Given user is on Register page
 When user types used login
 Then register error message is shown
+
+Given user is on Settings page
+When user changes color version
+Then selected color should be changed
