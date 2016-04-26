@@ -30,7 +30,7 @@ public class WykopWebTest extends JUnitStories {
     private ContextView contextView = new LocalFrameContextView().sized(500, 100);
 
     public WykopWebTest()  {
-        System.setProperty("webdriver.chrome.driver", "C:/Users/Daniel/Downloads/chromedriver_win32/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "/Users/kuba/Dev/chromedriver/chromedriver");
     }
 
     @Override

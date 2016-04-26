@@ -103,6 +103,7 @@ public class WykopSteps {
     public void userShouldBeLoggedIn() {
         pages.screenshot("user-logged");
         assertTrue(pages.login().isLogged());
+
     }
 
 //    @Given("user is on Settings page")

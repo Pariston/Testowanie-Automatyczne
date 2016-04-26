@@ -54,13 +54,12 @@ public class Login extends WebDriverPage {
     }
 
     public void userGoToSettingsPage() {
+        if(!isLogged()) loginValid();
         get("http://www.wykop.pl/ustawienia/");
         manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     public void userChangeColorVersion() {
-        get("http://www.wykop.pl/ustawienia/");
-        manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         findElement(By.xpath("//select[@name='user[night_mode]']")).click();
 
         if(findElement(By.xpath("//option[@value='0']")).isSelected()) {
