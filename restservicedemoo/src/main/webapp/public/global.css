@@ -1,0 +1,32 @@
+body {
+    font: 13px Century Gothic,arial,sans-serif;
+    background: #2f2f2f;
+    color: #eaeaea;
+}
+
+a {
+    text-decoration: none;
+    color: cyan;
+}
+
+.menu {
+    padding: 25px 0 25px 20px;
+    background: #1f1f1f;
+    overflow: hidden;
+    margin: -7px;
+}
+
+ul {
+    float: right;
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    list-style: none;
+    display: inline;
+    padding: 25px 20px;
+    background: #3f3f3f;
+    margin-right: -4px;
+    text-transform: uppercase;
+}

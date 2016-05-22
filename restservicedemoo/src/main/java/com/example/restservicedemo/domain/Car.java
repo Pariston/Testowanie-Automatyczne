@@ -9,13 +9,24 @@ public class Car {
 	private String make;
 	private String model;	
 	private int yop;
-	
-	public Car(long id, String make, String model, int yop) {
+
+	public int getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(int ownerId) {
+		this.ownerId = ownerId;
+	}
+
+	private int ownerId;
+
+	public Car(long id, String make, String model, int yop, int ownerId) {
 		super();
 		this.id = id;
 		this.make = make;
 		this.model = model;
 		this.yop = yop;
+		this.ownerId = ownerId;
 	}
 	
 	public Car() {

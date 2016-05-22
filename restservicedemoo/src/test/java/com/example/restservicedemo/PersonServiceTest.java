@@ -41,6 +41,6 @@ public class PersonServiceTest {
 		Person rPerson = get("/person/1").as(Person.class);
 		
 		assertThat(PERSON_FIRST_NAME, equalToIgnoringCase(rPerson.getFirstName()));
-		
+
 	}
 }

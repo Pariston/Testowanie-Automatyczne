@@ -13,6 +13,8 @@ import javax.ws.rs.core.Response;
 import com.example.restservicedemo.domain.Person;
 import com.example.restservicedemo.service.PersonManager;
 
+import java.util.List;
+
 @Path("person")
 public class PersonRESTService {	
 	
@@ -33,8 +35,23 @@ public class PersonRESTService {
 		pm.addPerson(person);
 		return Response.status(201).entity("Person").build(); 
 	}
-	
-	
+
+	@GET
+	@Path("/all")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Person> getAllPersons() {
+		return pm.getAllPersons();
+	}
+
+	@GET
+	@Path("/remove/{personId}")
+	@Consumes(MediaType.TEXT_HTML)
+	public String removePerson(@PathParam("personId") Long id) {
+		Person p = pm.getPerson(id);
+		pm.removePerson(p);
+		return "Usunieto";
+	}
+
 	@GET
 	@Path("/test")
 	@Produces(MediaType.TEXT_HTML)
