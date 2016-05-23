@@ -16,6 +16,11 @@ a {
     margin: -7px;
 }
 
+ul li {
+    list-style: none;
+    display: inline;
+}
+
 ul.ulmenu {
     float: right;
     padding: 0;
@@ -23,8 +28,6 @@ ul.ulmenu {
 }
 
 ul.ulmenu li {
-    list-style: none;
-    display: inline;
     padding: 25px 20px;
     background: #3f3f3f;
     margin-right: -4px;
@@ -39,4 +42,19 @@ ul.ulmenu li {
 
 .active:hover {
     color: lightblue;
+}
+
+.submenuContainer {
+    padding: 10px 20px;
+    background: #0f0f0f;
+    margin: 8px -8px 20px;
+}
+
+.submenuContainer li {
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 4px;
+    background: darkred;
+    color: #eaeaea;
+    margin-right: 20px;
 }

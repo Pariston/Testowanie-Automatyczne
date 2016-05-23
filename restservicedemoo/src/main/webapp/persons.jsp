@@ -25,10 +25,12 @@
         <a href="./cars.jsp"><li>Cars</li></a>
     </ul>
 </div>
-<ul class="submenu">
-    <li class="view">View all persons</li>
-    <li class="add">Add a person</li>
-</ul>
+<div class="submenuContainer">
+    <ul class="submenu">
+        <li class="view">View all persons</li>
+        <li class="add">Add a person</li>
+    </ul>
+</div>
 
 <div id="personAddContainer">
 

@@ -17,12 +17,12 @@
 </head>
 <body>
     <div class="menu">
-        <ul>
+        <ul class="ulmenu">
             <a href="./persons.jsp"><li>Persons</li></a>
             <a href="./cars.jsp"><li>Cars</li></a>
         </ul>
     </div>
-    <h1>The service is running!</h1>
-    <p>ladzia</p>
+    <br /><br />
+<img src="http://i.imgur.com/HPCtUXf.png" />
 </body>
 </html>

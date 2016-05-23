@@ -17,18 +17,22 @@ $().ready(function() {
     });
 
     personADD.click(function() {
+        clearing("#personAddContainer p");
         personAddContainer.show();
         personsList.hide();
         personAddContainer.append(
-            '<p><input type="text" name="personFirstName"></p>' +
-            '<p><input type="text" name="personYOB"></p>' +
-            '<p><input type="submit" onclick="addperson()" value="Add"></p>'
+            '<p><input type="number" name="personId" min="0" placeholder="ID"></p>' +
+            '<p><input type="text" name="personFirstName" placeholder="First name"></p>' +
+            '<p><input type="text" name="personYOB" placeholder="Year of birth"></p>' +
+            '<p><span></span><input type="submit" onclick="addperson()" value="Add"></p>'
         )
     });
 
-    personAddSubmit.click(function() {
-        alert("poszlo");
-    });
+    function clearing(space) {
+        $(space).each(function() {
+            $(this).remove();
+        })
+    }
 
     function printList() {
         $.ajax({
@@ -68,6 +72,7 @@ $().ready(function() {
 
 
     function updateList(data) {
+        clearing("#personsList table tr");
         personsList.show();
         personAddContainer.hide();
         
@@ -75,20 +80,23 @@ $().ready(function() {
             "<th>#</th>" +
             "<th>Name</th>" +
             "<th>YOB</th>" +
+            "<th>Operations</th>" +
             "</tr>");
         if(typeof data.person.length === 'undefined') {
             personsList.append('<tr>' +
                 '<td>' + 1 + '</td>' +
-                '<td><span class="active" data-target=data.person.id onclick="viewPersonDetails(\'' + data.person.id + '\')">' + data.person.firstName + '</span></td>' +
+                '<td><span class="name">' + data.person.firstName + '</span></td>' +
                 '<td>' + data.person.yob + '</td>' +
+                '<td><span class="active" onclick="viewPersonDetails(\'' + data.person.id + '\')">See his cars</span></td>' +
                 '<td><span class="remove" onclick="removeperson(\'' + data.person.id + '\')">Remove</span></td>' +
                 '</tr>');
         }
         for(var i = 0; i < data.person.length; i++) {
             personsList.append('<tr>' +
                 '<td>' + i + '</td>' +
-                '<td><span class="active" onclick="viewPersonDetails(\'' + data.person[i].id + '\')">' + data.person[i].firstName + '</span></td>' +
+                '<td><span class="name">' + data.person[i].firstName + '</span></td>' +
                 '<td>' + data.person[i].yob + '</td>' +
+                '<td><span class="active" onclick="viewPersonDetails(\'' + data.person[i].id + '\')">See his cars</span></td>' +
                 '<td><span class="remove" onclick="removeperson(\'' + data.person[i].id + '\')">Remove</span></td>' +
                 '</tr>');
         }
@@ -100,6 +108,7 @@ $().ready(function() {
 
 function addperson(person) {
     var personToAdd = {
+        "id": $("input[name='personId']").val(),
         "firstName": $("input[name='personFirstName']").val(),
         "yob": $("input[name='personYOB']").val()
     };

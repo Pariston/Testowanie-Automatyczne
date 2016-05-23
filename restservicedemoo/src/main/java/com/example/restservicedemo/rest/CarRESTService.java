@@ -33,9 +33,8 @@ public class CarRESTService {
 	@POST
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_HTML)
 	public Response addNewCar(Car car) {
-		Car carToAdd = new Car(car.getMake(), car.getModel(), car.getYop(), car.getOwnerId());
+		Car carToAdd = new Car(car.getId(), car.getMake(), car.getModel(), car.getYop(), car.getOwnerId());
 		cm.addCar(carToAdd);
 		return Response.status(201).entity("success").build();
 	}

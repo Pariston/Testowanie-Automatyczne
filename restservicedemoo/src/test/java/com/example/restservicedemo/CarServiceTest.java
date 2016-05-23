@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CarServiceTest {
-	
+
 	@BeforeClass
 	public static void setUp(){
 		RestAssured.baseURI = "http://localhost";
@@ -34,14 +34,14 @@ public class CarServiceTest {
 
 	CarManager cm = new CarManager();
 
-//	@Test
-//	public void getCar(){
-//		get("/car/0").then().assertThat().body("model", equalTo("Corsa"));
-//
-//		Car aCar = get("/car/0").as(Car.class);
-//		assertThat(aCar.getMake(), equalToIgnoringCase("Opel"));
-//	}
-	
+	@Test
+	public void getCar(){
+		get("/car/0").then().assertThat().body("model", equalTo("Fiesta"));
+
+		Car aCar = get("/car/0").as(Car.class);
+		assertThat(aCar.getMake(), equalToIgnoringCase("Ford"));
+	}
+
 	@Test
 	public void addCar(){
 
@@ -49,30 +49,24 @@ public class CarServiceTest {
 
 		Car aCar = new Car(0L, "Ford", "Fiesta", 2011, 0);
 		given().
-		       contentType(MediaType.APPLICATION_JSON).
-		       body(aCar).
-		when().
-		post("/car/add").then().assertThat().statusCode(201);
-
+				contentType(MediaType.APPLICATION_JSON).
+				body(aCar).
+				when().
+				post("/car/add").then().assertThat().statusCode(201);
+		System.out.println(aCar.getId());
 		get("/car/0").then().assertThat().body("model", equalTo("Fiesta"));
 	}
 
-//	@Test
-//	public void removeCar(){
-//		Car carToRemove = get("/car/0").as(Car.class);
-//		cm.removeCar(carToRemove);
-//		get("/car/0").then().assertThat().body("model", equalTo(null));
-//	}
+	@Test
+	public void removeCar(){
+		Car carToRemove = get("/car/0").as(Car.class);
+		cm.removeCar(carToRemove);
+		get("/car/0").then().assertThat().body("model", equalTo(null));
+	}
 
 	@Test
 	public void getAllCars() {
-/*		String carsList = get("/car/all").andReturn().body();
-		System.out.println((carsList));
-		List<String> caro = from(carsList).get("cars.car");
-		System.out.println(caro);*/
-		//delete("/car/").then().assertThat().statusCode(200);
-
-		Car aCar = new Car(0L, "Ford", "Fiesta", 2011, 0);
+		Car aCar = new Car(1L, "Ford", "Fiesta", 2011, 0);
 		given().
 				contentType(MediaType.APPLICATION_JSON).
 				body(aCar).

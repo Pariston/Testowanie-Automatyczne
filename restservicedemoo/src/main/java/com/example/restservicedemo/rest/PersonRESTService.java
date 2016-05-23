@@ -32,7 +32,7 @@ public class PersonRESTService {
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addPerson(Person person){
-		Person personToAdd = new Person(person.getFirstName(), person.getYob());
+		Person personToAdd = new Person(person.getId(), person.getFirstName(), person.getYob());
 		pm.addPerson(personToAdd);
 		return Response.status(201).entity("Person").build(); 
 	}
@@ -40,6 +40,7 @@ public class PersonRESTService {
 	@GET
 	@Path("/all")
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public List<Person> getAllPersons() {
 		return pm.getAllPersons();
 	}

@@ -24,11 +24,12 @@
         <a href="./cars.jsp"><li>Cars</li></a>
     </ul>
 </div>
+<div class="submenuContainer">
 <ul class="submenu">
     <li class="view">View all cars</li>
     <li class="add">Add a car</li>
 </ul>
-
+</div>
 <div id="carAddContainer">
 
 </div>
