@@ -63,7 +63,6 @@ public class PersonServiceTest {
 
     @Test
     public void removePerson() {
-        addPersons();
         Person rPerson = get("/person/0").as(Person.class);
         pm.removePerson(rPerson);
         get("/person/0").then().assertThat().body("firstName", equalTo(null));
@@ -87,7 +86,7 @@ public class PersonServiceTest {
 			 /			\	Nawiedzil Cie zolnierz dobrego kodu z czapka slynnego zbieracza ryzu na dalekim wschodzie.
 			/____________\  Wstaw studentowi dobra ocene, a czeka Cie miesiac spokojnego snu.
 			 \|-     -| /
-			   \  _	 /      
+			   \  _	 /
 				\___/
 			 ___/	\___
 			/			\
