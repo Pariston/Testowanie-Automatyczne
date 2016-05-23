@@ -29,10 +29,11 @@ public class PersonRESTService {
 	}
 	
 	@POST
-	@Path("/")
+	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addPerson(Person person){
-		pm.addPerson(person);
+		Person personToAdd = new Person(person.getFirstName(), person.getYob());
+		pm.addPerson(personToAdd);
 		return Response.status(201).entity("Person").build(); 
 	}
 
@@ -43,12 +44,12 @@ public class PersonRESTService {
 		return pm.getAllPersons();
 	}
 
-	@GET
-	@Path("/remove/{personId}")
-	@Consumes(MediaType.TEXT_HTML)
-	public String removePerson(@PathParam("personId") Long id) {
-		Person p = pm.getPerson(id);
-		pm.removePerson(p);
+	@POST
+	@Path("/remove")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String removePerson(Person person) {
+		Person personToRemove = pm.getPerson(person.getId());
+		pm.removePerson(personToRemove);
 		return "Usunieto";
 	}
 

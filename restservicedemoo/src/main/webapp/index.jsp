@@ -24,15 +24,5 @@
     </div>
     <h1>The service is running!</h1>
     <p>ladzia</p>
-    <%
-        PersonManager pm = new PersonManager();
-        List<Person> plist = pm.getAllPersons();
-    %>
-
-    <c:forEach items="${plist}" var="item">
-        ${item}<br>
-    </c:forEach>
-
-    <%= request.getParameter("name") %>
 </body>
 </html>

@@ -30,7 +30,7 @@ public class PersonServiceTest {
 		
 		delete("/person/").then().assertThat().statusCode(200);
 		
-		Person person = new Person(1L, PERSON_FIRST_NAME, 1976);
+		Person person = new Person(PERSON_FIRST_NAME, 1976);
 		
 		given().
 	       contentType(MediaType.APPLICATION_JSON).

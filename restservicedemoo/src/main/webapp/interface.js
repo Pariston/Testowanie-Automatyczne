@@ -8,7 +8,7 @@ $().ready(function() {
     };
     console.log(5);
 
-    $.ajax({
+/*    $.ajax({
         url: 'api/car/add',
         type: 'POST',
         data: JSON.stringify(x),
@@ -18,5 +18,5 @@ $().ready(function() {
         success: function () {
 
         }
-    });
+    });*/
 });

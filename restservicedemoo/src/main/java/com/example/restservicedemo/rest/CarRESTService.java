@@ -5,7 +5,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.example.restservicedemo.domain.Car;
+import com.example.restservicedemo.domain.Person;
 import com.example.restservicedemo.service.CarManager;
+
+import java.util.List;
 
 @Path("car")
 public class CarRESTService {
@@ -14,8 +17,9 @@ public class CarRESTService {
 	@GET
 	@Path("/{carId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Car getCar(@PathParam("carId") Long id){
-		return cm.getCar(id);
+	public Car getCar(@PathParam("carId") Long id) {
+		Car car = cm.getCar(id);
+		return car;
 	}
 	
 	@POST
@@ -31,10 +35,40 @@ public class CarRESTService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_HTML)
 	public Response addNewCar(Car car) {
-		//Car aCar = new Car(2, "Ford", "Fiesta", 2011, car);
-		System.out.println(car);
-		cm.addCar(car);
+		Car carToAdd = new Car(car.getMake(), car.getModel(), car.getYop(), car.getOwnerId());
+		cm.addCar(carToAdd);
 		return Response.status(201).entity("success").build();
+	}
+
+	@POST
+	@Path("/remove")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response removeCar(Car car) {
+		Car carToRemove = cm.getCar(car.getId());
+		cm.removeCar(carToRemove);
+		return Response.status(201).entity("success").build();
+	}
+
+	@GET
+	@Path("/all")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Car> getAllCars() {
+		return cm.getAllCars();
+	}
+
+	@GET
+	@Path("/allWithOwner")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Car> getAllCarsWithOwner() {
+		return cm.getCarsWithOwner();
+	}
+
+	@POST
+	@Path("/byOwner")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Car> gettOwnerCars(Person person) {
+		return cm.getCarsByOwnerId(person.getId());
 	}
 
 	@DELETE

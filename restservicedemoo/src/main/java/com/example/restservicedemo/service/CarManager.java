@@ -21,7 +21,8 @@ public class CarManager {
     private PreparedStatement deleteAllCarsStmt;
     private PreparedStatement getAllCarsStmt;
     private PreparedStatement getCarByIdStmt;
-    private PreparedStatement getCarsByOwnerStmt;
+    private PreparedStatement getCarWithOwner;
+    private PreparedStatement getCarsByOwnerId;
 
     private Statement statement;
 
@@ -53,8 +54,10 @@ public class CarManager {
                     .prepareStatement("SELECT id, make, model, yop, ownerId FROM Car");
             getCarByIdStmt = connection
                     .prepareStatement("SELECT id, make, model, yop, ownerId FROM Car where id = ?");
-            getCarsByOwnerStmt = connection
-                    .prepareStatement("SELECT id, make, model, yop, ownerId FROM Car where ownerId = ?");
+            getCarWithOwner = connection
+                    .prepareStatement("SELECT * FROM Car INNER JOIN Person ON Car.ownerId=Person.ID INNER JOIN Person ON Car.ownerId=Person.ID");
+            getCarsByOwnerId = connection
+                    .prepareStatement("SELECT * FROM Car WHERE ownerId = ?");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,7 +83,7 @@ public class CarManager {
             addCarStmt.setString(2, car.getMake());
             addCarStmt.setString(3, car.getModel());
             addCarStmt.setInt(4, car.getYop());
-            addCarStmt.setInt(5, car.getOwnerId());
+            addCarStmt.setLong(5, car.getOwnerId());
             count = addCarStmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -99,6 +102,49 @@ public class CarManager {
             e.printStackTrace();
         }
         return count;
+    }
+
+    public List<Car> getCarsByOwnerId(long id) {
+        List<Car> cars = new ArrayList<Car>();
+        try {
+            getCarsByOwnerId.setLong(1, id);
+            ResultSet rs = getCarsByOwnerId.executeQuery();
+            while(rs.next()) {
+                Car c = new Car();
+                c.setId(rs.getInt("id"));
+                c.setMake(rs.getString("make"));
+                c.setModel(rs.getString("model"));
+                c.setYop(rs.getInt("yop"));
+                c.setOwnerId(rs.getInt("ownerId"));
+                cars.add(c);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cars;
+    }
+
+    public List<Car> getCarsWithOwner() {
+        List<Car> cars = new ArrayList<Car>();
+        PersonManager pm = new PersonManager();
+        try {
+            ResultSet rs = getCarWithOwner.executeQuery();
+
+            while (rs.next()) {
+                Car c = new Car();
+                c.setId(rs.getInt("id"));
+                c.setMake(rs.getString("make"));
+                c.setModel(rs.getString("model"));
+                c.setYop(rs.getInt("yop"));
+                c.setOwnerId(rs.getInt("ownerId"));
+                c.setOwner(pm.getPerson(rs.getLong("Person.ID")));
+                cars.add(c);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cars;
     }
 
     public List<Car> getAllCars() {

@@ -10,17 +10,35 @@ public class Car {
 	private String model;	
 	private int yop;
 
-	public int getOwnerId() {
+	public Person getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Person owner) {
+		this.owner = owner;
+	}
+
+	private Person owner;
+	public long getOwnerId() {
 		return ownerId;
 	}
 
-	public void setOwnerId(int ownerId) {
+	public void setOwnerId(long ownerId) {
 		this.ownerId = ownerId;
 	}
 
-	private int ownerId;
+	private long ownerId;
 
-	public Car(long id, String make, String model, int yop, int ownerId) {
+	public Car(String make, String model, int yop, long ownerId) {
+		super();
+		//this.id = id;
+		this.make = make;
+		this.model = model;
+		this.yop = yop;
+		this.ownerId = ownerId;
+	}
+
+	public Car(long id, String make, String model, int yop, long ownerId) {
 		super();
 		this.id = id;
 		this.make = make;
@@ -28,7 +46,7 @@ public class Car {
 		this.yop = yop;
 		this.ownerId = ownerId;
 	}
-	
+
 	public Car() {
 	}
 

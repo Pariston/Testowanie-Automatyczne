@@ -1,19 +1,20 @@
-<%@ page import="com.example.restservicedemo.service.PersonManager" %>
-<%@ page import="com.example.restservicedemo.domain.Person" %>
-<%@ page import="java.util.List" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: elzoy
-  Date: 5/22/2016
-  Time: 5:51 AM
+  Date: 5/23/2016
+  Time: 6:19 AM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="com.example.restservicedemo.service.PersonManager" %>
+<%@ page import="com.example.restservicedemo.domain.Person" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Cars</title>
+    <title>Persons</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="./interface.js"></script>
-    <script src="./car_interface.js"></script>
+    <script src="./person_interface.js"></script>
     <link rel="stylesheet" type="text/css" href="./public/global.css">
 </head>
 <body>
@@ -25,14 +26,17 @@
     </ul>
 </div>
 <ul class="submenu">
-    <li class="view">View all cars</li>
-    <li class="add">Add a car</li>
+    <li class="view">View all persons</li>
+    <li class="add">Add a person</li>
 </ul>
 
-<div id="carAddContainer">
+<div id="personAddContainer">
 
 </div>
-<div id="carsList">
+<div id="personsList">
+    <table></table>
+</div>
+<div id="personDetails">
     <table></table>
 </div>
 </body>

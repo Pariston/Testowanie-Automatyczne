@@ -45,7 +45,7 @@ public class PersonManager {
 				statement.executeUpdate(CREATE_TABLE_PERSON);
 
 			addPersonStmt = connection
-					.prepareStatement("INSERT INTO Person (id, name, yob) VALUES (?, ?, ?)");
+					.prepareStatement("INSERT INTO Person (name, yob) VALUES (?, ?)");
 			removePersonStmt = connection
 					.prepareStatement("DELETE FROM Person where id = ?");
 			deleteAllPersonsStmt = connection
@@ -75,9 +75,9 @@ public class PersonManager {
 	public int addPerson(Person person) {
 		int count = 0;
 		try {
-			addPersonStmt.setLong(1, person.getId());
-			addPersonStmt.setString(2, person.getFirstName());
-			addPersonStmt.setInt(3, person.getYob());
+			//addPersonStmt.setLong(1, person.getId());
+			addPersonStmt.setString(1, person.getFirstName());
+			addPersonStmt.setInt(2, person.getYob());
 
 			count = addPersonStmt.executeUpdate();
 
