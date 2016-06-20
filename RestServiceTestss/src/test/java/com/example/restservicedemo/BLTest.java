@@ -27,23 +27,48 @@ public class BLTest {
 
 	@Before
 	public void clearAll() {
-//		pm.clearPersons();
-//		cm.clearCars();
+		//pm.clearPersons();
+		//cm.clearCars();
 	}
 
 	@Test
-	public void checkCarAdding() {
-
+	public void checkCarAdd() {
+		cm.clearCars();
 		Car c = new Car();
 		c.setModel("Syrena");
 		c.setYop(1973);
-
 		assertEquals(1, cm.addCar(c));
+		cm.addCar(c);
+		assertFalse(cm.getAllCars().isEmpty());
+	}
+
+	@Test
+	public void checkPersonAdd() {
+		pm.clearPersons();
+		Person p = new Person();
+		p.setFirstName("Daniel");
+		p.setYob(1994);
+		pm.addPerson(p);
+		assertFalse(pm.getAllPersons().isEmpty());
+	}
+
+	@Test
+	public void getCarWithOwner() {
+		Car c = new Car();
+		c.setModel("Opel");
+		c.setYop(2008);
+
+		Person p = new Person();
+		p.setFirstName("Daniel");
+		p.setYob(1994);
+
+		c.setOwner(p);
+		assertEquals("Daniel", c.getOwner().getFirstName());
 	}
 
 	@Test
 	public void checkSell() {
-
+		pm.clearPersons();
 		Car c1 = new Car();
 		c1.setModel("Syrena");
 		c1.setYop(1973);
@@ -82,7 +107,7 @@ public class BLTest {
 
 		Car rCar = cm.getCarWithOwner(carToSell);
 
-		//assertEquals(owner.getFirstName(), rCar.getOwner().getFirstName());
+		assertEquals(owner.getFirstName(), rCar.getOwner().getFirstName());
 
 	}
 
@@ -111,6 +136,4 @@ public class BLTest {
 		pm.clearPersons();
 		assertTrue(pm.getAllPersons().size() == 0);
 	}
-
-
 }

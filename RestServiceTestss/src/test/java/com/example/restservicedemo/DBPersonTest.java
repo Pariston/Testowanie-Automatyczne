@@ -56,6 +56,28 @@ public class DBPersonTest {
 
     @Test
     public void addPerson() throws Exception {
+        pm.clearPersons();
+
+        Person personToAdd = new Person("Papłyk", 1992);
+        given().contentType(MediaType.APPLICATION_JSON).body(personToAdd)
+                .when().post("/person/add").then().assertThat().statusCode(201);
+
+        IDataSet dbDataSet = connection.createDataSet();
+        ITable actualTable = dbDataSet.getTable("PERSON");
+        ITable filteredTable = DefaultColumnFilter.excludedColumnsTable
+                (actualTable, new String[]{"P_ID"});
+
+        IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(
+                new File("src/test/resources/add_personData.xml"));
+        ITable expectedTable = expectedDataSet.getTable("PERSON");
+
+        Assertion.assertEquals(expectedTable, filteredTable);
+    }
+
+    @Test
+    public void removePerson() throws Exception {
+        pm.clearPersons();
+
         Person personToAdd = new Person("Jatobymzjadlbatona", 1994);
         given().contentType(MediaType.APPLICATION_JSON).body(personToAdd)
                 .when().post("/person/add").then().assertThat().statusCode(201);
@@ -66,7 +88,7 @@ public class DBPersonTest {
                 (actualTable, new String[]{"P_ID"});
 
         IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(
-                new File("src/test/resources/personData.xml"));
+                new File("src/test/resources/remove_personData.xml"));
         ITable expectedTable = expectedDataSet.getTable("PERSON");
 
         Assertion.assertEquals(expectedTable, filteredTable);

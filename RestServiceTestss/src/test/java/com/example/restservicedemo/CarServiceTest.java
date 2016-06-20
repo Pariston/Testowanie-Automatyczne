@@ -7,19 +7,21 @@ import com.example.restservicedemo.service.PersonManager;
 import com.jayway.restassured.RestAssured;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import org.hamcrest.Matchers;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javax.ws.rs.core.MediaType;
 import java.util.HashMap;
 
-import static com.jayway.restassured.RestAssured.delete;
-import static com.jayway.restassured.RestAssured.get;
-import static com.jayway.restassured.RestAssured.given;
+import static com.jayway.restassured.RestAssured.*;
 import static com.jayway.restassured.path.json.JsonPath.from;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
 
 /**
@@ -36,6 +38,29 @@ public class CarServiceTest {
         RestAssured.baseURI = "http://localhost";
         RestAssured.port = 8080;
         RestAssured.basePath = "/restservicedemo/api";
+    }
+
+    @Test
+    public void clearCars() {
+        Car car = new Car(CAR_MODEL, 2011);
+
+        given()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(car)
+                .when().post("/car/add")
+                .then().assertThat().statusCode(201);
+
+        given()
+                .contentType(MediaType.APPLICATION_JSON)
+                .when().get("/car/all")
+                .then().assertThat().body(containsString("car"));
+
+        delete("/car/").then().assertThat().statusCode(200);
+
+        //given()
+                //.contentType(MediaType.APPLICATION_JSON)
+                //.when().get("/car/all")
+                //.then().assertThat().body("", Matchers.hasSize(0));
     }
 
     @Test

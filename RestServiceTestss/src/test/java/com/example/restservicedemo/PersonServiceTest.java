@@ -8,6 +8,7 @@ import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertNull;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
 import static org.junit.Assert.assertSame;
 
@@ -18,6 +19,7 @@ import com.example.restservicedemo.service.CarManager;
 import com.example.restservicedemo.service.PersonManager;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import org.hamcrest.Matchers;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -41,7 +43,32 @@ public class PersonServiceTest {
 		RestAssured.port = 8080;
 		RestAssured.basePath = "/restservicedemo/api";   	
     }
-	
+
+	@Test
+	public void clearPersons() {
+		pm.clearPersons();
+
+		Person person = new Person(PERSON_FIRST_NAME, 1976);
+
+		given().
+				contentType(MediaType.APPLICATION_JSON).
+				body(person).
+				when().post("/person/add")
+				.then().assertThat().statusCode(201);
+
+		given().
+				contentType(MediaType.APPLICATION_JSON).
+				when().get("/person/all").
+				then().assertThat().body(containsString("person"));
+
+		pm.clearPersons();
+
+//		given().
+//				contentType(MediaType.APPLICATION_JSON).
+//				when().get("/person/all").
+//				then().assertThat().body("", Matchers.hasSize(0));
+	}
+
 	@Test
 	public void addPersons() throws JSONException {
 		/*

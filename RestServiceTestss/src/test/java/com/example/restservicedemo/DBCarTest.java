@@ -13,6 +13,7 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -52,9 +53,20 @@ public class DBCarTest {
         databaseTester.onSetup();
     }
 
+    @Before
+    public void setUpBeforeTest() throws Exception {
+        IDataSet dataSet = new FlatXmlDataSetBuilder().build(
+                new FileInputStream(new File("src/test/resources/fullData.xml")));
+        databaseTester.setDataSet(dataSet);
+        databaseTester.onSetup();
+
+    }
+
     @Test
     public void addCar() throws Exception {
-        Car carToAdd = new Car("Jatobymzjadlbatona", 1994);
+        cm.clearCars();
+
+        Car carToAdd = new Car("Toyota", 1991);
         given().contentType(MediaType.APPLICATION_JSON).body(carToAdd)
                 .when().post("/car/add").then().assertThat().statusCode(201);
 
